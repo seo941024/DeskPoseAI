@@ -1,0 +1,31 @@
+# --- 강의자료 (용량 큼, 저장소에 안 올림) ---
+*.pptx
+*.zip
+
+# --- 모델 가중치 (실행 시 자동/1회 다운로드로 받음) ---
+*.pt
+*.hdf5
+**/00_Models/
+
+# --- 얼굴이 찍힌 개인 사진 (공개 저장소에 올리지 않음, 코드만 공개) ---
+**/pose_img/person/facing_forward/
+**/pose_img/person/head_down/
+**/pose_img/person/chin_on_hand/
+**/raw_images/
+
+# --- 파이썬 ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- 임시 폴더 ---
+_extract_pose/
+_extract_emotion/
+_tmp_unzip/
+
+# --- OS / 에디터 ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
