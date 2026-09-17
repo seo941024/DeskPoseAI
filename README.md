@@ -7,6 +7,7 @@
 |---|---|---|
 | [`실습3_Pose/`](./실습3_Pose) | 2D Pose Estimation 기반 행동 인식 | YOLO-Pose로 키포인트 추출 → XGBoost로 자세 3종 분류 |
 | [`실습4_Emotion/`](./실습4_Emotion) | DeepFace 나이·성별·감정 인식 | 실시간 나이/성별/감정 추출 + 감정 집계 + 검출 백엔드 비교 |
+| [`실습3+4_Combined/`](./실습3+4_Combined) | 통합 데모 (보너스) | 자세 라벨 + 나이/성별/감정을 한 화면에 동시 표시 |
 
 ---
 
@@ -31,6 +32,16 @@ DeepFace로 얼굴에서 나이·성별·감정을 동시에 뽑아 실시간으
 - 보너스: `01_AgeGender/Age_Gender_Recognition.py` — DeepFace가 아닌 별도 WideResNet 모델로 나이·성별만 따로 확인
 
 자세한 실행 방법은 [실습4_Emotion/README.md](./실습4_Emotion/README.md) 참고.
+
+## 실습3+4_Combined — 통합 데모 (보너스)
+
+두 실습을 한 화면에 합쳐서 자세 라벨 + 나이/성별/감정을 동시에 보여준다.
+
+| head_down | chin_on_hand | facing_forward |
+|---|---|---|
+| ![head_down](./실습3+4_Combined/docs/demo_head_down.png) | ![chin_on_hand](./실습3+4_Combined/docs/demo_chin_on_hand.png) | ![facing_forward](./실습3+4_Combined/docs/demo_facing_forward.png) |
+
+자세한 실행 방법은 [실습3+4_Combined/README.md](./실습3+4_Combined/README.md) 참고.
 
 ---
 
