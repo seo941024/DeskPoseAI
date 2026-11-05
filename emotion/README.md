@@ -1,11 +1,11 @@
-# 실습 4 — DeepFace 나이·성별·감정 인식
+# DeepFace 나이·성별·감정 인식
 
 원본: `Emotion_Detection.zip` (`Emotion_Detection.py`). `Age_Gender_Recognition.py`는 DeepFace가 아닌
-별도의 WideResNet 방식이라 슬라이드 필수 요건(DeepFace 사용)과 안 맞음 — **사용 안 함**.
+별도의 WideResNet 방식이라 DeepFace 기반 구성과 안 맞음 — **메인 기능에 사용 안 함**.
 
-## 원본 대비 바뀐 점 (필수 요건 채우기)
+## 원본 대비 바뀐 점
 
-| 필수 요건 | 원본 상태 | 수정 |
+| 기능 | 원본 상태 | 수정 |
 |---|---|---|
 | 나이·성별·감정 3가지 추출 | ✅ 이미 있었음 | 그대로 |
 | 감정 결과를 판단·집계에 활용 | ❌ 화면 표시만 함 | `Counter`로 감정 누적 집계 → 화면에 "지금까지 우세 감정" 표시, 종료 시 콘솔에 백분율 요약, `results/emotion_log_<backend>.csv`로 저장 |
@@ -44,7 +44,7 @@ python compare_backends.py
 
 `compare_backends.py`는 이 로그들을 모아 **백엔드별 검출 횟수 / 감정 분포 / 평균 추정 나이**를 비교해 출력하고 `results/backend_compare.csv`로 저장함 — "같은 조건에서 정확도와 속도를 비교"한 근거 자료로 그대로 쓸 수 있다.
 
-## 참고 — 백엔드 특성 (슬라이드 8)
+## 참고 — 백엔드 특성
 
 | 백엔드 | 속도 | 정확도 | 비고 |
 |---|---|---|---|
@@ -52,9 +52,9 @@ python compare_backends.py
 | mtcnn | 느린 편 | 정면·측면 모두 높음 | 랜드마크 포함 |
 | retinaface | 보통~느림 | 작은 얼굴까지 가장 정확 | GPU 권장 |
 
-## 다음에 할 수 있는 것 (확장, 슬라이드 10)
+## 다음에 할 수 있는 것
 
 - 3~5프레임마다 한 번만 분석해 FPS 더 확보 (`--interval` 값 조정)
 - 얼굴 임베딩으로 같은 사람 중복 집계 방지
-- `results/emotion_log_*.csv`를 시간축 그래프로 시각화 (강의 몰입도 리포트 등)
+- `results/emotion_log_*.csv`를 시간축 그래프로 시각화 (학습 몰입도 리포트 등)
 - 개인정보: 얼굴 원본 이미지는 저장하지 않고 집계값만 남기는 지금 방식 유지

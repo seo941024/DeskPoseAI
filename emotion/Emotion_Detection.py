@@ -35,7 +35,7 @@ class AnalyzerThread(threading.Thread):
     def __init__(self, backend):
         super().__init__(daemon=True)
         self.backend = backend
-        self.actions = ['age', 'gender', 'emotion']  # race는 필수 요건에 없어서 빼고 그만큼 가볍게
+        self.actions = ['age', 'gender', 'emotion']  # race는 쓰지 않아서 빼고 그만큼 가볍게
         self._lock = threading.Lock()
         self._latest_frame = None
         self.results = []
@@ -88,7 +88,7 @@ def main():
     frame_times = deque(maxlen=30)
 
     # ------------------------------------------------------------
-    # 감정 집계 (필수 요건: 감정 결과를 표시만 말고 판단·집계에 활용)
+    # 감정 집계: 감정 결과를 표시만 말고 판단·집계에 활용
     #   - 분석될 때마다 dominant_emotion 카운트를 누적
     #   - 화면 상단에 "지금까지 우세 감정" 표시, 종료 시 콘솔에 비율 요약
     #   - 전체 로그는 results/emotion_log_<backend>.csv 로 저장 (시각, 감정, 나이, 성별)

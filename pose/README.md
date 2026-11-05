@@ -1,9 +1,9 @@
-# 실습 3 — 2D Pose Estimation 기반 행동 인식
+# 2D Pose Estimation 기반 행동 인식
 
 원본 소스: [Tory-Hwang/06_PoseEstimation](https://github.com/Tory-Hwang/06_PoseEstimation)
-**모델은 강사 안내대로 `yolov8n-pose.pt` 대신 `yolo26n-pose.pt` 로 변경함.**
+**모델은 `yolov8n-pose.pt` 대신 `yolo26n-pose.pt` 로 변경함.**
 
-책상 앞 웹캠 기준으로 **집중 자세 3종을 실시간으로 분류**한다 (슬라이드 추천 "강의실 집중 자세 모니터" 컨셉).
+책상 앞 웹캠 기준으로 **집중 자세 3종을 실시간으로 분류**한다.
 전신이 필요 없고 상반신/얼굴만 보이면 동작함.
 
 | 자세 | 뜻 |
@@ -15,7 +15,7 @@
 ## 폴더 구조
 
 ```
-실습3_Pose/
+pose/
 ├── 00_Models/                          # yolo26n-pose.pt (최초 실행 시 자동 다운로드)
 └── 01_PoseAction/
     ├── 12.2D_Pose_Estimation_test.py   # 1부: 웹캠에 포즈 추정 결과만 표시 (스모크 테스트)
@@ -85,9 +85,9 @@ y' = (py - box_y1) / box_height
 
 기본 배수는 `--multiplier 6`. 더 늘리려면 `python 14b_augment_keypoints.py --multiplier 12` 처럼 값만 올리면 됨.
 
-## 필수 요건 체크
+## 구현 범위
 
-| 요건 | 대응 |
+| 기능 | 구현 |
 |---|---|
 | YOLO-Pose 17개+ 키포인트 직접 수집 | `13.2D_Pose_Save.py` → YOLO-Pose로 직접 추출 → `keypoints.csv` |
 | 앉음·서있음 외 3개 이상 동작 정의 | `facing_forward`, `head_down`, `chin_on_hand` 3종 |

@@ -1,19 +1,19 @@
-# 실습3 + 실습4 통합 데모
+# 자세 + 감정 통합 데모
 
-자세 인식(실습3)과 나이·성별·감정 인식(실습4)을 한 화면에 같이 띄우는 보너스 통합 데모.
-각 실습은 원래 독립적이라 필수 제출물은 아니고, 포트폴리오용 최종 데모로 추가한 것.
+자세 인식(`pose`)과 나이·성별·감정 인식(`emotion`)을 한 화면에 같이 띄우는 통합 데모.
+두 기능은 원래 독립적으로 동작하고, 이를 하나의 웹캠 화면으로 합친 최종 데모.
 
 ## 사전 조건
 
-먼저 두 실습이 각각 다 되어 있어야 함:
-- `실습3_Pose/01_PoseAction`에서 `13 → 14 → 14b → 15` 실행 → `model_weights.xgb` 생성됨
-- `실습4_Emotion`은 별도 학습 없음 (DeepFace는 사전학습 모델을 바로 씀)
+먼저 두 기능이 각각 준비되어 있어야 함:
+- `pose/01_PoseAction`에서 `13 → 14 → 14b → 15` 실행 → `model_weights.xgb` 생성됨
+- `emotion`은 별도 학습 없음 (DeepFace는 사전학습 모델을 바로 씀)
 
 ## 실행
 
 ```bash
 conda activate vision_new
-cd "실습3+4_Combined"
+cd combined
 python combined_demo.py --backend opencv
 ```
 

@@ -1,9 +1,9 @@
-# 실습3(자세 인식) + 실습4(나이/성별/감정 인식)을 한 화면에 합친 통합 데모.
+# 자세 인식 + 나이/성별/감정 인식을 한 화면에 합친 통합 데모.
 # - 매 프레임: YOLO-Pose로 박스+키포인트 추출 -> XGBoost로 자세(집중도) 라벨 예측 (빠름, 매 프레임)
 # - 별도 스레드: DeepFace로 나이/성별/감정 분석 (느려서 스레드로 돌려야 화면이 안 끊김)
 # - 박스 위에는 자세 라벨, 박스 아래에는 나이/성별/감정을 같이 표시함
 #
-# 사전 조건: 실습3_Pose/01_PoseAction 에서 13~15번을 먼저 실행해서
+# 사전 조건: pose/01_PoseAction 에서 13~15번을 먼저 실행해서
 #            pose_img/person/model_weights.xgb 와 classes.json 이 만들어져 있어야 함.
 #
 # 사용법:
@@ -23,7 +23,7 @@ from ultralytics import YOLO
 from deepface import DeepFace
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-POSE_DIR = os.path.abspath(os.path.join(HERE, "../실습3_Pose"))
+POSE_DIR = os.path.abspath(os.path.join(HERE, "../pose"))
 POSE_MODEL_FILE = os.path.join(POSE_DIR, "00_Models", "yolo26n-pose.pt")
 POSE_SAVE_DIR = os.path.join(POSE_DIR, "01_PoseAction", "pose_img", "person")
 POSE_WEIGHTS = os.path.join(POSE_SAVE_DIR, "model_weights.xgb")
@@ -91,7 +91,7 @@ def main():
 
     if not os.path.exists(POSE_WEIGHTS):
         print(f"Error: {POSE_WEIGHTS} 가 없습니다.")
-        print("먼저 실습3_Pose/01_PoseAction 에서 13 -> 14 -> 14b -> 15 번을 실행해 모델을 학습하세요.")
+        print("먼저 pose/01_PoseAction 에서 13 -> 14 -> 14b -> 15 번을 실행해 모델을 학습하세요.")
         return
 
     with open(POSE_CLASSES_FILE, encoding='utf-8') as fp:
