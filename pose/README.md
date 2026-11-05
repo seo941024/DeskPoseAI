@@ -71,8 +71,7 @@ y' = (py - box_y1) / box_height
 순수하게 "자세 모양"만 학습하게 된다. `13.2D_Pose_Save.py`(수집)와 `16.2D_Pose_ActionRecognition.py`(예측)이
 반드시 같은 정규화 방식을 써야 함 — 방식이 어긋나면 예측이 랜덤에 가까워진다.
 
-**효과**: 화면 전체 기준 정규화였을 때 val accuracy **58.8%** (train loss는 0에 가까운데 val loss 1.08 — 과적합) →
-박스 기준 정규화 적용 후 **97.8%** 로 개선.
+**효과**: 화면 전체 기준 정규화에서 나타난 과적합이 줄고, 같은 조건 비교에서 검증 정확도가 크게 올랐다.
 
 ## 데이터 증강
 
@@ -89,7 +88,7 @@ y' = (py - box_y1) / box_height
 
 | 기능 | 구현 |
 |---|---|
-| YOLO-Pose 17개+ 키포인트 직접 수집 | `13.2D_Pose_Save.py` → YOLO-Pose로 직접 추출 → `keypoints.csv` |
-| 앉음·서있음 외 3개 이상 동작 정의 | `facing_forward`, `head_down`, `chin_on_hand` 3종 |
-| 파생 특징 1개 이상 추가해 성능 비교 | 박스 기준 정규화 적용 전후 비교 (58.8% → 97.8%) |
-| 웹캠·영상에서 동작 라벨 표시 데모 | `16.2D_Pose_ActionRecognition.py` |
+| YOLO-Pose 키포인트 직접 수집 | `13.2D_Pose_Save.py` → YOLO-Pose로 직접 추출 → `keypoints.csv` |
+| 책상 앞 자세 3종 정의 | `facing_forward`, `head_down`, `chin_on_hand` 3종 |
+| 정규화 방식 비교 | 화면 기준과 사람 박스 기준 정규화 전후 비교 |
+| 웹캠·영상 자세 라벨 표시 | `16.2D_Pose_ActionRecognition.py` |
