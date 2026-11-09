@@ -157,7 +157,15 @@ DeskPoseAI/
 
 ```bash
 conda activate vision_new
-pip install ultralytics opencv-contrib-python pandas xgboost scikit-learn numpy deepface
+pip install ultralytics opencv-contrib-python pandas xgboost scikit-learn numpy deepface tf-keras
+```
+
+- `tf-keras`: TensorFlow 2.16 이상에서 DeepFace가 요구하는 패키지. 설치된 TensorFlow와 같은 버전대로 설치, 예를 들어 TensorFlow 2.21이면 `tf-keras==2.21.*`
+- deepface는 의존 패키지로 화면 기능이 빠진 `opencv-contrib-python-headless`도 함께 설치. 이 판이 `cv2`를 덮어쓰면 `cv2.imshow`에서 `The function is not implemented` 오류가 나므로 아래 명령으로 화면 기능이 있는 판 재설치
+
+```bash
+pip uninstall -y opencv-contrib-python-headless
+pip install --force-reinstall --no-deps opencv-contrib-python
 ```
 
 ## 저장소에서 제외한 것 (.gitignore)

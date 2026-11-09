@@ -53,7 +53,8 @@ class EmotionAnalyzer(threading.Thread):
         self.actions = ['age', 'gender', 'emotion']
         self._lock = threading.Lock()
         self._latest_frame = None
-        self.results = []
+        self.results = []        # 화면 표시용: 마지막으로 얼굴을 찾은 분석 결과
+        self.finished = deque()  # 집계용: 얼굴을 찾은 분석이 끝날 때마다 하나씩 추가, 메인 루프가 한 번씩만 집계
         self.running = True
         self.busy = False
 
@@ -78,6 +79,7 @@ class EmotionAnalyzer(threading.Thread):
                 # (매 프레임 검출이 안정적으로 성공하지 않아서, 안 그러면 텍스트가 계속 깜빡이거나 안 보임)
                 if good:
                     self.results = good
+                    self.finished.append(good)
             except Exception:
                 pass
             self.busy = False
@@ -109,8 +111,7 @@ def main():
         print("Error: 카메라를 열 수 없습니다.")
         return
 
-    emotion_counter = Counter()
-    last_emotion_seen = None
+    emotion_counter = Counter()  # 얼굴을 찾은 분석 1회당 1건, 얼굴이 여럿이면 가장 큰 얼굴만 집계
     frame_times = deque(maxlen=30)
     prev_t = time.time()
 
@@ -164,9 +165,11 @@ def main():
             info = f"{res['dominant_gender']}, {res['age']}  {emo}"
             cv2.putText(frame, info, (x, y + h + 25), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 200, 255), 2)
 
-            if emo != last_emotion_seen:
-                emotion_counter[emo] += 1
-                last_emotion_seen = emo
+        # 새로 끝난 분석만 한 번씩 집계 (같은 결과를 매 프레임 다시 세지 않음)
+        while emotion_analyzer.finished:
+            faces = emotion_analyzer.finished.popleft()
+            main_face = max(faces, key=lambda f: f['region']['w'] * f['region']['h'])
+            emotion_counter[main_face['dominant_emotion']] += 1
 
         if emotion_counter:
             top_emotion, top_count = emotion_counter.most_common(1)[0]

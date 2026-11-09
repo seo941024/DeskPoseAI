@@ -54,7 +54,7 @@ print(f"[수집 대상] '{target_pose}' -> {pose_dir}")
 existing = glob.glob(os.path.join(save_dir, '*', '*.jpg'))
 start_idx = len(existing)
 
-# YOLOv8 포즈 추정 모델 불러오기
+# YOLO26 포즈 추정 모델 불러오기
 model = YOLO(model_file)
 
 # 카메라 또는 비디오 캡처 객체 생성 (0은 기본 웹캠)

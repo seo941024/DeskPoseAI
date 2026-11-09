@@ -20,7 +20,7 @@ save_dir = './pose_img/person/'
 weight_file = f'{save_dir}model_weights.xgb'
 classes_file = f'{save_dir}classes.json'
 
-# YOLOv8 모델 로드
+# YOLO26 포즈 모델 로드
 model_yolo = YOLO(model_file)
 
 # XGBoost 모델 로드 (Booster 대신 XGBClassifier 사용)
@@ -59,7 +59,7 @@ while cap.isOpened():
     success, frame = cap.read()
 
     if success:
-        # YOLOv8로 프레임에서 객체 감지 수행
+        # YOLO26 포즈 모델로 프레임에서 사람과 키포인트 검출
         results = model_yolo(frame, verbose=False)
 
         # 결과를 시각화하여 프레임에 그리기

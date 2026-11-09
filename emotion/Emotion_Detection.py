@@ -38,7 +38,8 @@ class AnalyzerThread(threading.Thread):
         self.actions = ['age', 'gender', 'emotion']  # race는 쓰지 않아서 빼고 그만큼 가볍게
         self._lock = threading.Lock()
         self._latest_frame = None
-        self.results = []
+        self.results = []        # 화면 표시용: 가장 최근 분석 결과
+        self.finished = deque()  # 집계용: 분석이 끝날 때마다 결과 목록 하나씩 추가, 메인 루프가 꺼내서 한 번씩만 집계
         self.running = True
         self.busy = False
 
@@ -59,9 +60,11 @@ class AnalyzerThread(threading.Thread):
                 results = DeepFace.analyze(frame, actions=self.actions,
                                             detector_backend=self.backend,
                                             enforce_detection=False, silent=True)
-                self.results = [r for r in results if r.get('face_confidence', 1) > 0]
+                results = [r for r in results if r.get('face_confidence', 1) > 0]
             except Exception:
-                self.results = []
+                results = []
+            self.results = results
+            self.finished.append(results)
             self.busy = False
 
     def stop(self):
@@ -89,14 +92,35 @@ def main():
 
     # ------------------------------------------------------------
     # 감정 집계: 감정 결과를 표시만 말고 판단·집계에 활용
-    #   - 분석될 때마다 dominant_emotion 카운트를 누적
+    #   - 분석될 때마다 dominant_emotion 카운트를 누적 (분석 1회당 1건)
+    #   - 한 화면에 얼굴이 여럿이면 가장 큰 얼굴(화면 앞 사용자) 1개만 집계
     #   - 화면 상단에 "지금까지 우세 감정" 표시, 종료 시 콘솔에 비율 요약
     #   - 전체 로그는 results/emotion_log_<backend>.csv 로 저장 (시각, 감정, 나이, 성별)
     # ------------------------------------------------------------
     emotion_counter = Counter()
     session_start = time.time()
     log_rows = []
-    last_emotion_seen = None  # 같은 감정이 연속으로 뜨는 동안 중복 카운트하지 않기 위함
+    analysis_count = 0  # 끝난 DeepFace 분석 횟수 (얼굴을 못 찾은 분석 포함)
+
+    def collect_finished():
+        # 새로 끝난 분석만 꺼내서 한 번씩 집계. 화면 표시는 같은 결과를 여러 프레임 동안 그리지만
+        # 집계는 분석 단위로 해야 "총 N회 분석"이 실제 분석 횟수와 맞음
+        nonlocal analysis_count
+        while analyzer.finished:
+            faces = analyzer.finished.popleft()
+            analysis_count += 1
+            if not faces:
+                continue
+            main_face = max(faces, key=lambda r: r['region']['w'] * r['region']['h'])
+            emo = main_face['dominant_emotion']
+            emotion_counter[emo] += 1
+            log_rows.append({
+                "t_sec": round(time.time() - session_start, 1),
+                "backend": args.backend,
+                "emotion": emo,
+                "age": main_face['age'],
+                "gender": main_face['dominant_gender'],
+            })
 
     while True:
         ret, frame = cap.read()
@@ -123,17 +147,7 @@ def main():
                 text_y = max(20, y - 10 - i * 25)
                 cv2.putText(frame, text, (x, text_y), font, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
 
-            emo = result['dominant_emotion']
-            if emo != last_emotion_seen:
-                emotion_counter[emo] += 1
-                log_rows.append({
-                    "t_sec": round(time.time() - session_start, 1),
-                    "backend": args.backend,
-                    "emotion": emo,
-                    "age": result['age'],
-                    "gender": result['dominant_gender'],
-                })
-                last_emotion_seen = emo
+        collect_finished()
 
         if emotion_counter:
             top_emotion, top_count = emotion_counter.most_common(1)[0]
@@ -156,6 +170,8 @@ def main():
             break
 
     analyzer.stop()
+    analyzer.join(timeout=5)  # 종료 직전에 진행 중이던 분석이 끝나면 그 결과까지 집계
+    collect_finished()
     cap.release()
     cv2.destroyAllWindows()
 
@@ -166,9 +182,9 @@ def main():
             w.writerows(log_rows)
         print(f"\n[저장] {log_path} ({len(log_rows)}건)")
 
-    if emotion_counter:
+    if analysis_count:
         total = sum(emotion_counter.values())
-        print(f"\n[감정 집계 요약] backend={args.backend}, 총 {total}회 분석")
+        print(f"\n[감정 집계 요약] backend={args.backend}, 총 {analysis_count}회 분석, 얼굴 검출 {total}회")
         for emo, cnt in emotion_counter.most_common():
             print(f"    {emo:<10} {cnt:>4}회  ({cnt/total*100:.1f}%)")
 

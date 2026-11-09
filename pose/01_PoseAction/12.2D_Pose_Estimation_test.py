@@ -13,7 +13,7 @@ Models_dir = os.path.abspath(os.path.join(script_dir, "../00_Models"))
 
 model_file = os.path.join(Models_dir, "yolo26n-pose.pt" )
 
-# 1. YOLOv8 Pose 모델 불러오기 (미리 학습된 모델 사용)
+# 1. YOLO26 Pose 모델 불러오기 (미리 학습된 모델 사용)
 model = YOLO(model_file)  # 'n'은 모델 크기 옵션 (n, s, m, l, x)
 
 # 2. 실시간 카메라 비디오 스트림 열기
@@ -37,7 +37,7 @@ while True:
     annotated_frame = results[0].plot()  # 추정된 포즈를 프레임 위에 그림
 
     # 4. 결과를 화면에 표시
-    cv2.imshow("YOLOv8 Pose Estimation", annotated_frame)
+    cv2.imshow("YOLO26 Pose Estimation", annotated_frame)
 
     # 'q' 키를 누르면 루프 종료
     if cv2.waitKey(1) & 0xFF == ord('q'):

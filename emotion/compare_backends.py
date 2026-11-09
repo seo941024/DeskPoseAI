@@ -24,8 +24,10 @@ print("=== 백엔드별 검출 횟수 ===")
 print(df.groupby("backend").size().to_string())
 
 print("\n=== 백엔드별 감정 분포(%) ===")
-pct = (df.groupby(["backend", "emotion"]).size()
-         .groupby(level=0).apply(lambda s: (s / s.sum() * 100).round(1)))
+# 백엔드 안에서의 비율. groupby().apply()는 pandas 2.0부터 그룹 키를 한 번 더 붙여 backend 단계가 두 번 찍히므로
+# 같은 백엔드의 합계를 transform으로 구해서 나눔
+counts = df.groupby(["backend", "emotion"]).size()
+pct = (counts / counts.groupby(level="backend").transform("sum") * 100).round(1)
 print(pct.to_string())
 
 print("\n=== 백엔드별 평균 추정 나이 ===")
