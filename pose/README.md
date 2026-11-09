@@ -58,6 +58,16 @@ python 15.2D_Pose_Training.py
 python 16.2D_Pose_ActionRecognition.py
 ```
 
+### 실행 결과
+
+웹캠 대신 ultralytics 패키지에 들어 있는 예제 사진 `bus.jpg`를 프레임으로 넣어 스크립트 소스 수정 없이 실행한 화면. `yolo26n-pose.pt`는 첫 실행 때 ultralytics 공식 배포 주소에서 자동으로 받은 가중치, XGBoost 모델은 저장소의 `model_weights.xgb` 사용. 책상 앞 사진이 아니므로 자세 라벨은 학습 범위 밖 입력에 대한 결과.
+
+| `12.2D_Pose_Estimation_test.py` · 사람 4명 박스와 키포인트 17개 | `16.2D_Pose_ActionRecognition.py` · 자세 분류 |
+|---|---|
+| <img src="screenshots/pose_estimation_bus.jpg" width="330" alt="bus.jpg 포즈 추정 결과"> | <img src="screenshots/action_recognition_bus.jpg" width="330" alt="bus.jpg 자세 분류 결과"> |
+
+16번 스크립트에 전신이 보이는 `bus.jpg`를 넣은 결과. 신뢰도 0.75를 넘는 3명 모두 `head_down` 분류, 책상 앞 상반신으로 학습한 모델이라 전신 사진에서는 라벨이 맞지 않는 모습.
+
 ## 핵심 파생 특징 — 박스 기준 정규화
 
 키포인트를 **화면 전체 기준이 아니라 "이 사람의 검출 박스" 기준으로 정규화**해서 저장·예측한다:
@@ -83,6 +93,10 @@ y' = (py - box_y1) / box_height
 - **좌표 노이즈** — 아주 작은 가우시안 노이즈 (검출 오차를 흉내)
 
 기본 배수는 `--multiplier 6`. 더 늘리려면 `python 14b_augment_keypoints.py --multiplier 12` 처럼 값만 올리면 됨.
+
+저장소의 `dataset.csv`로 기본 6배 증강을 실행한 결과. 원본 343행에서 2,058행으로 증가.
+
+<img src="screenshots/augment_keypoints.png" width="356" alt="14b_augment_keypoints.py 실행 결과">
 
 ## 구현 범위
 
