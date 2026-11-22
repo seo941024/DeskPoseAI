@@ -102,7 +102,7 @@ y' = (py - box_y1) / box_height
 
 | 기능 | 구현 |
 |---|---|
-| 웹캠 키포인트 데이터 수집 | `13.2D_Pose_Save.py` → YOLO-Pose로 키포인트 추출 → `keypoints.csv` |
+| YOLO-Pose 키포인트 수집 | `13.2D_Pose_Save.py` → YOLO-Pose로 추출 → `keypoints.csv` |
 | 책상 앞 자세 3종 정의 | `facing_forward`, `head_down`, `chin_on_hand` 3종 |
 | 사람 박스 기준 정규화 | 수집(`13`, `13b`, `13c`)·예측(`16`)·통합 데모에 같은 식 적용 |
 | 웹캠·영상 자세 라벨 표시 | `16.2D_Pose_ActionRecognition.py` |

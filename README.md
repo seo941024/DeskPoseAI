@@ -176,7 +176,7 @@ pip install --force-reinstall --no-deps opencv-contrib-python
 
 ## 원본 대비 바뀐 점 요약
 
-기본 예제 코드는 웹캠에 결과를 표시만 했고, 여기에 웹캠 데이터 수집, 자세 3종 분류,
+기본 예제 코드는 웹캠에 결과를 표시만 했고, 여기에 데이터 수집, 자세 3종 분류,
 결과 집계와 판단, 조건별 비교, 실시간 화면 표시를 더했다.
 
 - 포즈 모델을 `yolov8n-pose.pt` → `yolo26n-pose.pt` 로 교체

@@ -47,7 +47,7 @@ YOLO-Pose 키포인트 수집부터 XGBoost 학습, 웹캠 실시간 자세 분�
 
 | 파일 | 내용 |
 |---|---|
-| `classes.json` | 자세 목록 `facing_forward`, `head_down`, `chin_on_hand`. 수동 편집 기준 파일이며 클래스 번호 순서도 이 순서 |
+| `classes.json` | 자세 목록 `facing_forward`, `head_down`, `chin_on_hand`. 기준 파일이며 클래스 번호 순서도 이 순서 |
 | `keypoints.csv` | 이미지 이름, 라벨, 키포인트 17개의 `x0`~`y16` 좌표 |
 | `dataset.csv` | 라벨을 다시 붙여 정리한 학습용 원본 |
 | `dataset_aug.csv` | 증강 결과. 이미지 이름 뒤에 `#orig`, `#flip`, `#orig_jit0` 같은 태그 부착 |
