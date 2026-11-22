@@ -162,7 +162,8 @@ def main():
             region = res['region']
             x, y, w, h = region['x'], region['y'], region['w'], region['h']
             emo = res['dominant_emotion']
-            info = f"{res['dominant_gender']}, {res['age']}  {emo}"
+            gender = args.gender_display or res['dominant_gender']  # --gender-display 지정 시 표시만 고정
+            info = f"{gender}, {res['age']}  {emo}"
             cv2.putText(frame, info, (x, y + h + 25), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 200, 255), 2)
 
         # 새로 끝난 분석만 한 번씩 집계 (같은 결과를 매 프레임 다시 세지 않음)

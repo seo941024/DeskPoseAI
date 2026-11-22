@@ -1,16 +1,16 @@
 # DeepFace 나이·성별·감정 인식
 
-원본: `Emotion_Detection.zip` (`Emotion_Detection.py`). `Age_Gender_Recognition.py`는 DeepFace가 아닌
-WideResNet 방식이라 DeepFace 기반 구성과 안 맞음 — **메인 기능에 사용 안 함**.
+기존 예제 코드 `Emotion_Detection.zip`의 `Emotion_Detection.py` 기반 확장. `Age_Gender_Recognition.py`는 DeepFace가 아닌
+WideResNet 방식이라 DeepFace 기반 구성과 맞지 않아 표정 인식에서 미사용.
 
-## 원본 대비 바뀐 점
+## 구현 범위
 
-| 기능 | 원본 상태 | 수정 |
-|---|---|---|
-| 나이·성별·감정 3가지 추출 | ✅ 이미 있었음 | 그대로 |
-| 감정 결과를 판단·집계에 활용 | ❌ 화면 표시만 함 | `Counter`로 감정 누적 집계 → 화면에 "지금까지 우세 감정" 표시, 종료 시 콘솔에 백분율 요약, `results/emotion_log_<backend>.csv`로 저장 |
-| 검출 백엔드 2개 이상 비교 | ❌ opencv 고정 | `--backend opencv/mtcnn/retinaface/...` 인자 추가. `compare_backends.py`로 결과 비교 |
-| 웹캠·영상 실시간 데모 | ✅ | 그대로 |
+기존 `Emotion_Detection.py`의 나이·성별·감정 추출과 웹캠·영상 실시간 표시에 아래 항목 추가.
+
+| 항목 | 구현 |
+|---|---|
+| 감정 결과 판단·집계 | 화면 표시만 하던 감정 결과를 `Counter`로 누적 집계 → 화면에 "지금까지 우세 감정" 표시, 종료 시 콘솔에 백분율 요약, `results/emotion_log_<backend>.csv`로 저장 |
+| 검출 백엔드 2개 이상 비교 | `opencv` 고정 백엔드를 `--backend opencv/mtcnn/retinaface/...` 인자로 변경, `compare_backends.py`로 결과 비교 |
 
 ## 설치
 
@@ -58,7 +58,7 @@ python compare_backends.py
 
 ## 다음에 할 수 있는 것
 
-- 3~5프레임마다 한 번만 분석해 FPS 더 확보 (`--interval` 값 조정)
+- 분석 간격 옵션 추가, 3~5프레임마다 한 번만 분석해 FPS 확보
 - 얼굴 임베딩으로 같은 사람 중복 집계 방지
-- `results/emotion_log_*.csv`를 시간축 그래프로 시각화 (학습 몰입도 리포트 등)
+- `results/emotion_log_*.csv`를 시간축 그래프로 시각화해 학습 몰입도 리포트 작성
 - 개인정보: 얼굴 원본 이미지는 저장하지 않고 집계값만 남기는 지금 방식 유지
