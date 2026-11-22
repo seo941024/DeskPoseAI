@@ -88,7 +88,7 @@ DeepFace(`age`, `gender`, `emotion` 세 가지를 한 번의 `analyze()` 호출�
 |---|---|
 | 감정 결과를 판단·집계에 활용 | `collections.Counter`로 감정 등장 횟수 누적 → 화면에 "지금까지 우세 감정" 표시, 종료 시 콘솔에 비율 요약, `results/emotion_log_<backend>.csv`로 저장 |
 | 검출 백엔드 2개 이상 비교 | `--backend opencv/mtcnn/retinaface/...` 인자화, `compare_backends.py`로 여러 실행의 로그를 모아 검출 수·감정 분포·평균 추정 나이 비교 |
-| 웹캠 성능 문제 해결 | DeepFace 분석을 메인 루프에서 돌리면 분석하는 동안 화면이 멈춤 → 별도 스레드로 분리해서 항상 최신 프레임을 부드럽게 표시하고, 분석 결과만 비동기로 따라오게 구조 변경 |
+| 웹캠 성능 문제 해결 | DeepFace 분석을 메인 루프에서 돌리면 분석하는 동안 화면이 멈춤 → 별도 스레드로 분리해서 최신 프레임을 표시하고, 분석 결과만 비동기로 따라오게 구조 변경 |
 
 ### 백엔드별 특성
 
@@ -100,8 +100,8 @@ DeepFace(`age`, `gender`, `emotion` 세 가지를 한 번의 `analyze()` 호출�
 
 ### 비교용 스크립트
 
-`01_AgeGender/Age_Gender_Recognition.py` — DeepFace가 아닌 별도 WideResNet(IMDB-WIKI 가중치)
-모델로 나이·성별만 따로 뽑아보는 비교용 스크립트. 메인 기능과는 무관한 참고용.
+`01_AgeGender/Age_Gender_Recognition.py` — DeepFace가 아닌 WideResNet(IMDB-WIKI 가중치)
+모델로 나이·성별만 뽑아보는 비교용 스크립트. 메인 기능과는 무관한 참고용.
 
 자세한 실행 방법·구현 범위는 [emotion/README.md](./emotion/README.md) 참고.
 

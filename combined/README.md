@@ -7,7 +7,7 @@
 
 먼저 두 기능이 각각 준비되어 있어야 함:
 - `pose/01_PoseAction`에서 `13 → 14 → 14b → 15` 실행 → `model_weights.xgb` 생성됨
-- `emotion`은 별도 학습 없음 (DeepFace는 사전학습 모델을 바로 씀)
+- `emotion`은 학습 없음 (DeepFace는 사전학습 모델을 씀)
 
 ## 실행
 

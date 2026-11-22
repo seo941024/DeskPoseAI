@@ -1,7 +1,7 @@
 # DeepFace 나이·성별·감정 인식
 
 원본: `Emotion_Detection.zip` (`Emotion_Detection.py`). `Age_Gender_Recognition.py`는 DeepFace가 아닌
-별도의 WideResNet 방식이라 DeepFace 기반 구성과 안 맞음 — **메인 기능에 사용 안 함**.
+WideResNet 방식이라 DeepFace 기반 구성과 안 맞음 — **메인 기능에 사용 안 함**.
 
 ## 원본 대비 바뀐 점
 
