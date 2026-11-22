@@ -26,7 +26,7 @@ pose/
     ├── 14b_augment_keypoints.py        #   ㄴ 좌표 증강 (반전·지터) → dataset_aug.csv
     ├── 15.2D_Pose_Training.py          # 4부: XGBoost 분류기 학습 (dataset_aug.csv 우선 사용)
     ├── 16.2D_Pose_ActionRecognition.py # 5부: 실시간 행동 인식 데모
-    └── pose_img/person/classes.json    # 자세 목록 — 직접 수정 가능
+    └── pose_img/person/classes.json    # 자세 목록 — 수정 가능
 ```
 
 ## 설치
@@ -102,7 +102,7 @@ y' = (py - box_y1) / box_height
 
 | 기능 | 구현 |
 |---|---|
-| YOLO-Pose 키포인트 직접 수집 | `13.2D_Pose_Save.py` → YOLO-Pose로 직접 추출 → `keypoints.csv` |
+| 웹캠 키포인트 데이터 수집 | `13.2D_Pose_Save.py` → YOLO-Pose로 키포인트 추출 → `keypoints.csv` |
 | 책상 앞 자세 3종 정의 | `facing_forward`, `head_down`, `chin_on_hand` 3종 |
 | 사람 박스 기준 정규화 | 수집(`13`, `13b`, `13c`)·예측(`16`)·통합 데모에 같은 식 적용 |
 | 웹캠·영상 자세 라벨 표시 | `16.2D_Pose_ActionRecognition.py` |
