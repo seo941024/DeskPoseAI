@@ -61,8 +61,8 @@ XGBoost 분류기                  →  자세 3종 중 하나로 분류
 
 ### 핵심 발견 — 키포인트 정규화 기준
 
-처음엔 키포인트를 **화면 전체 기준**으로 정규화했더니, 사람이 사진/웹캠 속 어디에 얼마나 크게
-나오는지에 따라 값이 달라져서 모델이 "자세"가 아니라 "화면 속 위치"를 학습해버렸다.
+처음에는 키포인트를 **화면 전체 기준**으로 정규화했다. 사람이 사진/웹캠 속 어디에 얼마나 크게
+나오는지에 따라 값이 달라져, 모델이 "자세"가 아니라 "화면 속 위치"를 학습했다.
 그 결과 학습 손실은 0에 가까운데 검증 손실은 크게 벌어지는 과적합이 발생했다.
 
 **사람 박스 기준으로 정규화**(`x' = (px - box_x1) / box_width`)하도록 바꿔 카메라 거리·프레이밍과
@@ -116,9 +116,9 @@ DeepFace(`age`, `gender`, `emotion` 세 가지를 한 번의 `analyze()` 호출�
 |---|---|---|
 | ![head_down](./combined/docs/demo_head_down.png) | ![chin_on_hand](./combined/docs/demo_chin_on_hand.png) | ![facing_forward](./combined/docs/demo_facing_forward.png) |
 
-*(얼굴 부분은 공개 저장소 업로드를 위해 모자이크 처리함)*
+*(얼굴 부분은 공개 저장소 업로드를 위해 모자이크 처리)*
 
-박스 위쪽엔 자세 라벨, 아래쪽엔 `성별, 나이  감정`이 뜨고, 화면 상단엔 FPS와 지금까지 우세 감정이 표시된다.
+박스 위쪽에는 자세 라벨, 아래쪽에는 `성별, 나이  감정`, 화면 상단에는 FPS와 지금까지 우세 감정을 표시한다.
 자세한 실행 방법은 [combined/README.md](./combined/README.md) 참고.
 
 ---
@@ -170,7 +170,7 @@ pip install --force-reinstall --no-deps opencv-contrib-python
 
 ## 저장소에서 제외한 것 (.gitignore)
 
-- 모델 가중치(`*.pt`, `*.hdf5`, `00_Models/`) — 실행 시 자동/1회 다운로드로 받는 것들이라 용량만 차지함
+- 모델 가중치(`*.pt`, `*.hdf5`, `00_Models/`) — 실행 시 자동/1회 다운로드로 받는 파일이라 저장소에서 제외
 - 얼굴이 찍힌 개인 웹캠 사진(`pose_img/person/facing_forward|head_down|chin_on_hand/`, `raw_images/`) — 공개 저장소라 얼굴 원본은 올리지 않고 코드/파생 데이터(csv)만 공개
 - 참고 자료 `*.pptx`, `*.zip`
 

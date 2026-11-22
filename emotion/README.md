@@ -29,7 +29,7 @@ pip install mtcnn
 ## 실행
 
 ```bash
-# 1) 기본 백엔드(opencv, 제일 빠름)로 실행 — q 로 종료하면 콘솔에 감정 집계 요약이 뜸
+# 1) 기본 백엔드(opencv, 가장 빠름)로 실행 — q 로 종료하면 콘솔에 감정 집계 요약 출력
 python Emotion_Detection.py --backend opencv
 
 # 2) 같은 조건으로 다른 백엔드 실행 (비교용)
