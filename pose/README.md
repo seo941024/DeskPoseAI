@@ -3,13 +3,13 @@
 원본 소스: [Tory-Hwang/06_PoseEstimation](https://github.com/Tory-Hwang/06_PoseEstimation)
 **모델은 `yolov8n-pose.pt` 대신 `yolo26n-pose.pt` 로 변경함.**
 
-책상 앞 웹캠 기준으로 **집중 자세 3종을 실시간으로 분류**한다.
+책상 앞 웹캠 기준으로 **자세 3종을 실시간으로 분류**한다.
 전신이 필요 없고 상반신/얼굴만 보이면 동작함.
 
 | 자세 | 뜻 |
 |---|---|
-| `facing_forward` | 정면 보기 (집중) |
-| `head_down` | 고개 숙이기 (졸음/딴짓) |
+| `facing_forward` | 정면 보기 |
+| `head_down` | 고개 숙이기 |
 | `chin_on_hand` | 턱 괴기 |
 
 ## 폴더 구조

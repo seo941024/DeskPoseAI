@@ -1,6 +1,5 @@
 # 두 번 이상 실행해서 모은 results/emotion_log_<backend>.csv 를 모아
-# 백엔드별 평균 FPS는 콘솔 출력(각 실행 로그 참고)이고, 여기서는
-# "같은 조건에서 감정 분포·검출 횟수가 백엔드마다 어떻게 다른가"를 비교한다.
+# "같은 조건에서 검출 횟수·감정 분포·평균 추정 나이가 백엔드마다 어떻게 다른가"를 비교한다.
 #
 # 사용법:
 #   python Emotion_Detection.py --backend opencv

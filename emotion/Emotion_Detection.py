@@ -16,7 +16,7 @@ from deepface import DeepFace
 #   --backend opencv   (기본, 설치 불필요, 제일 빠름)
 #   --backend mtcnn     (랜드마크 포함, 측면 얼굴에 강함)
 #   --backend retinaface (가장 정확, GPU 권장, 느림)
-# 같은 웹캠/조건에서 --backend 만 바꿔 두 번 이상 실행해 속도·정확도를 비교한다.
+# 같은 웹캠/조건에서 --backend 만 바꿔 두 번 이상 실행하고, compare_backends.py로 검출 횟수·감정 분포·평균 추정 나이를 비교한다.
 # ----------------------------------------------------------------
 def get_args():
     ap = argparse.ArgumentParser(description="DeepFace 실시간 나이/성별/감정 인식 + 감정 집계")
